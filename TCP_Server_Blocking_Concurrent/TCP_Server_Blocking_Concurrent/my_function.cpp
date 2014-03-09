@@ -73,7 +73,10 @@ bool ProcessConnection(SOCKET hClientSocket)
 		else
 		{	
 			//把数据原封不动发送回客户端,即回显
-			return	CompleteSend(hClientSocket, buf, result);	
+			if (	false == CompleteSend(hClientSocket, buf, result)	)
+			{
+				return false;
+			}
 		}
 	} while (0 != result);
 
