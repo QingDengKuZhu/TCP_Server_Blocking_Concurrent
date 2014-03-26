@@ -127,7 +127,6 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 	{
 		return -1;
 	}
-	cout << "成功服务一个客户端连接" << endl;
 
 	//第三阶段,关闭一个客户端连接
 	if (false == ShutdownConnection(sd))
@@ -179,7 +178,7 @@ void DoWork(void)
 bool CompleteSend(SOCKET s, const char *data, int len)
 {
 	int idex = 0;
-	char *p = (char *)data;
+	const char *p = data;
 
 	while (idex < len)
 	{
@@ -207,7 +206,7 @@ bool CompleteRecv(SOCKET s, char *buffer, int len)
 	int idex = 0;
 	while (idex < len)
 	{
-		int nTemp = recv(s, buffer, len-idex, 0);
+		int nTemp = recv(s, buffer+idex, len-idex, 0);
 		if (nTemp == SOCKET_ERROR)
 		{
 			cout << "recv error : " <<WSAGetLastError() << endl;
